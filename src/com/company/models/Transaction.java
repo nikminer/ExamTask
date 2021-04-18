@@ -1,27 +1,15 @@
 package com.company.models;
 
 import com.company.TransStatus;
-import com.company.models.base.BaseIdentification;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
-public class Transaction extends BaseIdentification
+public class Transaction extends TransactionModel
 {
-    static AtomicInteger lastId = new AtomicInteger(1);
-
-    final Account from;
-    final Account to;
-
-    TransStatus transStatus;
-    final double amount;
-
     public Transaction (Account from, Account to , double amount)
     {
-        super(lastId.getAndIncrement());
-
-        this.amount = amount;
-        this.from = from;
-        this.to = to;
+        super(from, to , amount);
     }
 
     public Account getFrom()
@@ -42,13 +30,31 @@ public class Transaction extends BaseIdentification
         if (this.transStatus == null)
         {
             this.transStatus = transStatus;
+            this.completeTrans = LocalDateTime.now();
         }
+    }
+
+    public String getSpeedStr()
+    {
+        return String.format(
+                "%d %s -> %s %sms",
+                id,
+                from.name,
+                to.name,
+                Duration.between(creationDateTime, completeTrans).toMillis()
+        );
     }
 
     @Override
     public String toString()
     {
-        return String.format("%tD: %s -> %s %.2f %s", creationDateTime, from.name, to.name, amount, transStatus);
+        return String.format(
+                "%tD: %s -> %s %.2f %s",
+                creationDateTime,
+                from.name,
+                to.name,
+                amount,
+                transStatus
+        );
     }
-
 }

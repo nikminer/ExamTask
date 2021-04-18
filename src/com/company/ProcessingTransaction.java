@@ -2,10 +2,10 @@ package com.company;
 
 import com.company.models.Transaction;
 
-import java.util.concurrent.Semaphore;
-
-public class ProcessingTransaction implements Runnable{
+public class ProcessingTransaction implements Runnable {
     final Transaction trans;
+
+    static Object sync = new Object();
 
     ProcessingTransaction (Transaction trans)
     {
@@ -13,18 +13,17 @@ public class ProcessingTransaction implements Runnable{
     }
 
     @Override
-    public void run()
-    {
-        if (trans.getFrom().getAmount() >= trans.getAmount())
+    public void run() {
+        synchronized (sync)
         {
-            trans.setTransStatus(TransStatus.Success);
-            trans.getFrom().processTransaction(trans);
-            trans.getTo().processTransaction(trans);
+            if (trans.getFrom().getAmount() >= trans.getAmount()) {
+                trans.setTransStatus(TransStatus.Success);
+                trans.getFrom().processTransaction(trans);
+                trans.getTo().processTransaction(trans);
+            } else {
+                trans.setTransStatus(TransStatus.NotEnoughMoney);
+            }
         }
-        else
-        {
-            trans.setTransStatus(TransStatus.NotEnoughMoney);
-        }
+        System.out.println(trans.getSpeedStr());
     }
-
 }

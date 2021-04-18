@@ -1,7 +1,5 @@
 package com.company.models;
 
-import com.company.Bank;
-
 public class AccountBuilder
 {
     float amount = 0;

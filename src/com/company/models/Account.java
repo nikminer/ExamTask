@@ -1,34 +1,11 @@
 package com.company.models;
 
-import com.company.*;
-import com.company.models.base.BaseIdentification;
-
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-
-public class Account extends BaseIdentification
+public class Account extends AccountModel implements Transactable
 {
-    static AtomicInteger lastId = new AtomicInteger(1);
 
-    Person owner;
-
-    float amount;
-
-    String name;
-
-    ArrayList<Transaction> transactions;
-
-    public Account (AccountBuilder builder)
+    public Account(AccountBuilder builder)
     {
-        super(lastId.getAndIncrement());
-
-        this.owner = builder.owner;
-
-        this.name = builder.name;
-
-        this.amount = builder.amount;
-
-        this.transactions = new ArrayList<>();
+        super(builder);
     }
 
     public float getAmount()
@@ -40,15 +17,22 @@ public class Account extends BaseIdentification
     {
         this.name = name;
     }
+    public String getName()
+    {
+        return this.name;
+    }
 
     @Override
     public String toString()
     {
-        return String.format("%010d:%s Amount: %.2f", id, name, amount);
+        return String.format("%010d:%s Amount: %.2f", id, this.getName(), this.getAmount());
     }
 
+    @Override
     public void processTransaction(Transaction transaction)
     {
+        this.transactions.add(transaction);
+
         if (transaction.from == this)
         {
             this.amount -= transaction.amount;
@@ -57,7 +41,5 @@ public class Account extends BaseIdentification
         {
             this.amount += transaction.amount;
         }
-
-        this.transactions.add(transaction);
     }
 }

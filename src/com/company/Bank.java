@@ -22,11 +22,13 @@ public class Bank
 
     static ExecutorService service = Executors.newFixedThreadPool(3);
 
-    public static Future SendMoney(Account from, Account to, double amount)
-    {
+
+    public static Future SendMoney(Account from, Account to, double amount) throws InterruptedException {
+        Runnable worker;
         Transaction transaction = new Transaction(from, to, amount);
+        Thread.sleep(20);
         Bank.AddTransaction(transaction);
-        Runnable worker = new ProcessingTransaction(transaction);
+        worker = new ProcessingTransaction(transaction);
 
         return service.submit(worker);
     }

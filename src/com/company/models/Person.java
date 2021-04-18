@@ -1,24 +1,12 @@
 package com.company.models;
 
-import com.company.models.base.BaseIdentification;
-
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class Person extends BaseIdentification
+public class Person extends PersonModel
 {
-    static AtomicInteger lastId = new AtomicInteger(1);
-
-    String firstName;
-    String lastName;
-    List<Account> accountList;
-
     public Person(PersonBuilder builder)
     {
-        super(lastId.getAndIncrement());
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.accountList = builder.accountList;
+        super(builder);
     }
 
     public List<Account> getAccountList()
@@ -30,11 +18,20 @@ public class Person extends BaseIdentification
     public String toString() {
         String str = String.format("%s %s\n", firstName, lastName);
 
-        for (Account acc:accountList)
+        for (Account acc:this.getAccountList())
         {
            str += acc + "\n";
         }
 
         return str;
     }
+
+    public Account createAccount(String name, float amount)
+    {
+        Account acc = new AccountBuilder(this).name(name).amount(amount).build();
+        this.accountList.add(acc);
+
+        return acc;
+    }
+
 }
