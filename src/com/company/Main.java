@@ -1,7 +1,6 @@
 package com.company;
 
 import com.company.models.*;
-import com.company.models.AccountBuilder;
 import com.company.models.PersonBuilder;
 
 import java.util.*;
@@ -15,11 +14,11 @@ public class Main {
         Account account1, account2;
 
         Person person1 = new PersonBuilder("John", "Doe").build();
-        account1 = person1.createAccount("JDaccount1", 25000);
+        account1 = person1.createAccount("JDaccount1", (float) new Random().nextInt(Bank.config.MaxRandomAccountMoney));
         System.out.println(person1);
 
         Person person2 = new PersonBuilder("John", "Smith").build();
-        account2 = person2.createAccount("JSaccount1", 3000);
+        account2 = person2.createAccount("JSaccount1", (float) new Random().nextInt(Bank.config.MaxRandomAccountMoney));
         System.out.println(person2);
 
         List<Future> futures = new ArrayList<>();
@@ -39,8 +38,6 @@ public class Main {
         for (Transaction trans:Bank.transactionMap.values()) {
             System.out.println(trans);
         }
-
-
 
         System.out.println(person1);
         System.out.println(person2);

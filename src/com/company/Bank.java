@@ -10,6 +10,8 @@ public class Bank
 {
     static TreeMap<Integer, Transaction> transactionMap = new TreeMap();
 
+    public static Config config = LoadConfig.Load("app.config");
+
     public synchronized static void AddTransaction(Transaction transaction)
     {
         transactionMap.put(transaction.getId(), transaction);
@@ -20,7 +22,7 @@ public class Bank
         return transactionMap.get(id);
     }
 
-    static ExecutorService service = Executors.newFixedThreadPool(3);
+    static ExecutorService service = Executors.newFixedThreadPool(config.MaxThreading);
 
 
     public static Future SendMoney(Account from, Account to, double amount) throws InterruptedException {
