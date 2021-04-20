@@ -66,8 +66,11 @@ public class Main {
         }
 
         for (Transaction trans:Bank.transactionMap.values()) {
-            System.out.println(trans.getSpeedStr());
             System.out.println(trans);
+        }
+
+        for (Transaction trans:Bank.transactionMap.values()) {
+            System.out.println(trans.getSpeedStr());
         }
 
         System.out.println(person1);
