@@ -26,6 +26,11 @@ public class Person extends PersonModel
         return str;
     }
 
+    public String getName()
+    {
+        return this.firstName + " " + this.lastName;
+    }
+
     public Account createAccount(String name, float amount)
     {
         Account acc = new AccountBuilder(this).name(name).amount(amount).build();

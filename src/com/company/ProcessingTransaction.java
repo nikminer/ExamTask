@@ -23,7 +23,12 @@ public class ProcessingTransaction implements Runnable {
             } else {
                 trans.setTransStatus(TransStatus.NotEnoughMoney);
             }
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println(trans.getSpeedStr());
     }
 }

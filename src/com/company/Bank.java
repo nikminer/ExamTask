@@ -25,10 +25,9 @@ public class Bank
     static ExecutorService service = Executors.newFixedThreadPool(config.MaxThreading);
 
 
-    public static Future SendMoney(Account from, Account to, double amount) throws InterruptedException {
+    public static Future SendMoney(Account from, Account to, double amount) {
         Runnable worker;
         Transaction transaction = new Transaction(from, to, amount);
-        Thread.sleep(20);
         Bank.AddTransaction(transaction);
         worker = new ProcessingTransaction(transaction);
 
