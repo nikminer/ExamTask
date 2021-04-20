@@ -50,7 +50,7 @@ public class Main {
         accountList.addAll(person2.getAccountList());
         accountList.addAll(person3.getAccountList());
         Collections.shuffle(accountList);
-        for (int i = 0; i<= Bank.config.CountGenaratingTransaction; i++)
+        for (int i = 0; i < Bank.config.CountGenaratingTransaction; i++)
         {
             int amount = new Random().nextInt(Bank.config.MaxRandomAmountTransaction);
             long count = accountList.stream().count();
