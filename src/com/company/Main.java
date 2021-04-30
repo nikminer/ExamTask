@@ -16,22 +16,18 @@ public class Main {
         Person person3 = new PersonBuilder("Rintaro", "Okabe").build();
 
         int Max = new Random().nextInt(Bank.config.MaxRandomAccountOnPerson);
-        if (Max < 2)
-        {
+        if (Max < 2) {
             Max = 2;
         }
 
-        for (int i = 0; i<= Max; i++)
-        {
+        for (int i = 0; i <= Max; i++) {
             person1.createAccount(person1.getName(), (float) new Random().nextInt(Bank.config.MaxRandomAccountMoney));
         }
-        for (int i = 0; i<= Max; i++)
-        {
+        for (int i = 0; i <= Max; i++) {
             person2.createAccount(person2.getName(), (float) new Random().nextInt(Bank.config.MaxRandomAccountMoney));
         }
 
-        for (int i = 0; i<= Max; i++)
-        {
+        for (int i = 0; i <= Max; i++) {
             person3.createAccount(person3.getName(), (float) new Random().nextInt(Bank.config.MaxRandomAccountMoney));
         }
 
@@ -50,26 +46,25 @@ public class Main {
         accountList.addAll(person2.getAccountList());
         accountList.addAll(person3.getAccountList());
         Collections.shuffle(accountList);
-        for (int i = 0; i < Bank.config.CountGenaratingTransaction; i++)
-        {
+        for (int i = 0; i < Bank.config.CountGenaratingTransaction; i++) {
             int amount = new Random().nextInt(Bank.config.MaxRandomAmountTransaction);
             long count = accountList.stream().count();
             Account account1, account2;
-            account1 = accountList.get(new Random().nextInt((int)count));
-            account2 = accountList.get(new Random().nextInt((int)count));
+            account1 = accountList.get(new Random().nextInt((int) count));
+            account2 = accountList.get(new Random().nextInt((int) count));
             futures.add(Bank.SendMoney(account1, account2, amount));
         }
 
 
-        for (Future future:futures) {
+        for (Future future : futures) {
             future.get();
         }
 
-        for (Transaction trans:Bank.transactionMap.values()) {
+        for (Transaction trans : Bank.transactionMap.values()) {
             System.out.println(trans);
         }
 
-        for (Transaction trans:Bank.transactionMap.values()) {
+        for (Transaction trans : Bank.transactionMap.values()) {
             System.out.println(trans.getSpeedStr());
         }
 

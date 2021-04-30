@@ -6,19 +6,16 @@ import com.company.models.Transaction;
 import java.util.TreeMap;
 import java.util.concurrent.*;
 
-public class Bank
-{
+public class Bank {
     static TreeMap<Integer, Transaction> transactionMap = new TreeMap();
 
     public static Config config = LoadConfig.Load("app.config");
 
-    public synchronized static void AddTransaction(Transaction transaction)
-    {
+    public synchronized static void AddTransaction(Transaction transaction) {
         transactionMap.put(transaction.getId(), transaction);
     }
 
-    public static Transaction FindTransaction(int id)
-    {
+    public static Transaction FindTransaction(int id) {
         return transactionMap.get(id);
     }
 

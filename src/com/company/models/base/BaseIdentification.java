@@ -2,12 +2,11 @@ package com.company.models.base;
 
 import java.time.LocalDateTime;
 
-public abstract class BaseIdentification
-{
+public abstract class BaseIdentification {
     final protected int id;
     final protected LocalDateTime creationDateTime;
 
-    public BaseIdentification(int id){
+    public BaseIdentification(int id) {
         this.id = id;
         this.creationDateTime = LocalDateTime.now();
     }

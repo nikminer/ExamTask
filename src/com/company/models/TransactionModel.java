@@ -17,8 +17,7 @@ public class TransactionModel extends BaseIdentification {
 
     final double amount;
 
-    public TransactionModel(Account from, Account to , double amount)
-    {
+    public TransactionModel(Account from, Account to, double amount) {
         super(lastId.getAndIncrement());
         this.amount = amount;
         this.from = from;

@@ -7,15 +7,13 @@ public class ProcessingTransaction implements Runnable {
 
     static Object sync = new Object();
 
-    ProcessingTransaction (Transaction trans)
-    {
+    ProcessingTransaction(Transaction trans) {
         this.trans = trans;
     }
 
     @Override
     public void run() {
-        synchronized (sync)
-        {
+        synchronized (sync) {
             if (trans.getFrom().getAmount() >= trans.getAmount()) {
                 trans.setTransStatus(TransStatus.Success);
                 trans.getFrom().processTransaction(trans);

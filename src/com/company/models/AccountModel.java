@@ -5,8 +5,7 @@ import com.company.models.base.BaseIdentification;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AccountModel extends BaseIdentification
-{
+public class AccountModel extends BaseIdentification {
     static AtomicInteger lastId = new AtomicInteger(1);
 
     Person owner;
@@ -17,8 +16,7 @@ public class AccountModel extends BaseIdentification
 
     public ArrayList<Transaction> transactions;
 
-    public AccountModel (AccountBuilder builder)
-    {
+    public AccountModel(AccountBuilder builder) {
         super(lastId.getAndIncrement());
 
         this.owner = builder.owner;

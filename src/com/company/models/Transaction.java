@@ -5,20 +5,16 @@ import com.company.TransStatus;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class Transaction extends TransactionModel
-{
-    public Transaction (Account from, Account to , double amount)
-    {
-        super(from, to , amount);
+public class Transaction extends TransactionModel {
+    public Transaction(Account from, Account to, double amount) {
+        super(from, to, amount);
     }
 
-    public Account getFrom()
-    {
+    public Account getFrom() {
         return from;
     }
 
-    public Account getTo()
-    {
+    public Account getTo() {
         return to;
     }
 
@@ -27,15 +23,13 @@ public class Transaction extends TransactionModel
     }
 
     public void setTransStatus(TransStatus transStatus) {
-        if (this.transStatus == null)
-        {
+        if (this.transStatus == null) {
             this.transStatus = transStatus;
             this.completeTrans = LocalDateTime.now();
         }
     }
 
-    public String getSpeedStr()
-    {
+    public String getSpeedStr() {
         return String.format(
                 "%d %s -> %s %sms",
                 id,
@@ -46,8 +40,7 @@ public class Transaction extends TransactionModel
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format(
                 "%tD: %s -> %s %.2f %s",
                 creationDateTime,
